@@ -1,15 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class Octree
 {
     public OctreeNode rootNode;
 
-    public Octree(GameObject[] worldObjects, float minNodeSize) 
+    public void CreateOctree(GameObject[] worldObjects, float minNodeSize, LayerMask WorldObjLayer)
     {
         Bounds bounds = new Bounds();
-        foreach (GameObject go in worldObjects) 
+        foreach (GameObject go in worldObjects)
         {
             bounds.Encapsulate(go.GetComponent<Collider>().bounds);
         }
@@ -19,6 +21,8 @@ public class Octree
         bounds.SetMinMax(bounds.center - sizeVector, bounds.center + sizeVector);
         rootNode = new OctreeNode(bounds, minNodeSize);
         AddObjects(worldObjects);
+        rootNode.AddCorners(WorldObjLayer);
+        
     }
 
     public void AddObjects(GameObject[] worldObjects) 

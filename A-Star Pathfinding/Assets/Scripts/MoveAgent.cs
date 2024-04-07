@@ -5,13 +5,4 @@ using UnityEngine;
 public class MoveAgent : MonoBehaviour
 {
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
