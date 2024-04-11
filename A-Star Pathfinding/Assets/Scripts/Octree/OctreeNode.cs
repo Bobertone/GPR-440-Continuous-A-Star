@@ -89,42 +89,42 @@ public class OctreeNode
             Vector3Int corner = new Vector3Int((int)(nodeBounds.center.x + childLength), (int)(nodeBounds.center.y + childLength), (int)(nodeBounds.center.z + childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //-++
             corner = new Vector3Int((int)(nodeBounds.center.x - childLength), (int)(nodeBounds.center.y + childLength), (int)(nodeBounds.center.z + childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //+-+
             corner = new Vector3Int((int)(nodeBounds.center.x + childLength), (int)(nodeBounds.center.y - childLength), (int)(nodeBounds.center.z + childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //++-
             corner = new Vector3Int((int)(nodeBounds.center.x + childLength), (int)(nodeBounds.center.y + childLength), (int)(nodeBounds.center.z - childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //--+
             corner = new Vector3Int((int)(nodeBounds.center.x - childLength), (int)(nodeBounds.center.y - childLength), (int)(nodeBounds.center.z + childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //-+-
             corner = new Vector3Int((int)(nodeBounds.center.x - childLength), (int)(nodeBounds.center.y + childLength), (int)(nodeBounds.center.z - childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //+--
             corner = new Vector3Int((int)(nodeBounds.center.x + childLength), (int)(nodeBounds.center.y - childLength), (int)(nodeBounds.center.z - childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
             //---
             corner = new Vector3Int((int)(nodeBounds.center.x - childLength), (int)(nodeBounds.center.y - childLength), (int)(nodeBounds.center.z - childLength));
             if (!Physics.CheckSphere(corner, .1f, worldObjLayer))
                 if (!CreateOctree.pointMap.ContainsKey(corner))
-                    CreateOctree.pointMap.Add(corner, new Point());
+                    CreateOctree.pointMap.Add(corner, new Point(corner));
         if (children != null)
             {
             for (int i = 0; i < 8; i++)

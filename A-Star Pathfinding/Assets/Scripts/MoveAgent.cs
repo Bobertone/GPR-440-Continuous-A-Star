@@ -7,11 +7,18 @@ public class MoveAgent : MonoBehaviour
 {
     public PriorityQueue<Point> frontier;
     //Dictionary<Point, bool> visitedPoints;
-
     public Dictionary<Point, Point> cameFrom = new Dictionary<Point, Point>();
     public Dictionary<Point, double> costSoFar = new Dictionary<Point, double>();
 
     //https://www.redblobgames.com/pathfinding/a-star/implementation.html#csharp
+
+    void Start()
+    {
+        frontier = new PriorityQueue<Point>();
+        cameFrom = new Dictionary<Point, Point>();
+        costSoFar = new Dictionary<Point, double>();
+    }
+
     public void AStarSearch(Point start, Point goal)
     {
         frontier.Enqueue(start, 0);
@@ -43,6 +50,17 @@ public class MoveAgent : MonoBehaviour
             }
         }
     }
+
+    public void Draw() 
+    {
+        Gizmos.color = new Color(1, 0, 1);
+        foreach (var line in cameFrom) 
+        {
+            Gizmos.DrawLine(line.Key.pos, line.Value.pos);
+        }
     
+    }
+
+
 
 }
