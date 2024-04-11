@@ -20,9 +20,7 @@ public class Octree
         Vector3 sizeVector = new Vector3(maxSize, maxSize, maxSize) * 0.5f;
         bounds.SetMinMax(bounds.center - sizeVector, bounds.center + sizeVector);
         rootNode = new OctreeNode(bounds, minNodeSize);
-        AddObjects(worldObjects);
-        rootNode.AddCorners(WorldObjLayer);
-        
+        AddObjects(worldObjects);        
     }
 
     public void AddObjects(GameObject[] worldObjects) 

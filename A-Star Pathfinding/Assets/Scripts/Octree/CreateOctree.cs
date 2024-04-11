@@ -5,13 +5,13 @@ using UnityEngine;
 public class Point
 {
     Vector3Int pos;
-    //public List<Point> neighbors;
+    //neighborMap is a dictionary of neighboring points and their distance from this point
     public Dictionary<Point, float> neighborMap;
-
+    public float distanceToGoal;
+    public float distanceTraveled;
     public Point()
     {
         neighborMap = new Dictionary<Point, float>();
-        //neighbors = new List<Point>();
     }
 }
 
@@ -21,16 +21,19 @@ public class CreateOctree : MonoBehaviour
     public int nodeMinSize = 5;
     Octree otree;
     public static Dictionary<Vector3Int, Point> pointMap;
-    public Collider[] collisions;
-    public LayerMask worldObjMask;
+    public LayerMask worldObjLayer;
     [SerializeField] int neighborCount;
+    [SerializeField] GameObject start;
+    [SerializeField] GameObject goal;
 
     void Start()
     {
         otree = new Octree();
         pointMap = new Dictionary<Vector3Int, Point>();
-        otree.CreateOctree(worldObjects, nodeMinSize, worldObjMask);
-        //otree.rootNode.AddCorners();
+        otree.CreateOctree(worldObjects, nodeMinSize, worldObjLayer);
+        otree.rootNode.AddCorners(worldObjLayer);
+        FindNeighbors();
+        GetGoalDistance(goal.transform.position);
     }
 
     void OnDrawGizmos()
@@ -51,6 +54,15 @@ public class CreateOctree : MonoBehaviour
         }
     }
 
+    public void GetGoalDistance(Vector3 goalPos)
+    {
+        //corner = key value pair <vect3int(position), Point>
+        foreach (var corner in pointMap) 
+        {
+            corner.Value.distanceToGoal = Vector3.Distance(corner.Key, goalPos);
+        }
+    }
+
     public void FindNeighbors() 
     {
         //corner = key value pair <vect3int(position), Point>
@@ -67,7 +79,7 @@ public class CreateOctree : MonoBehaviour
                     {
                         corner.Value.neighborMap.Add(other.Value, Vector3.Distance(corner.Key,other.Key));
                     }
-                    else 
+                    else
                     {
                         //compare the potential neighbor (other) against the existing neighbors
                         //neighbor = key value pair <Point, float(distance)>
@@ -78,6 +90,7 @@ public class CreateOctree : MonoBehaviour
                             {
                                 corner.Value.neighborMap.Remove(neighbor.Key);
                                 corner.Value.neighborMap.Add(other.Value, Vector3.Distance(corner.Key, other.Key));
+                                break;
                             }
                         }
                     }
@@ -98,3 +111,6 @@ public class CreateOctree : MonoBehaviour
         }
     }
 }
+//build priority queue from start pos
+//for each neighbor, check if its blocked or already visited
+//if neither, add to queue
