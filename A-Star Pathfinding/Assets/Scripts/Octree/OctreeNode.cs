@@ -16,9 +16,6 @@ public class OctreeNode
     OctreeNode[] children = null;
     bool isOccupied = false;
     bool isTotallyOccupied = false;
-    float accCost;
-    public float heuristic = 1f;
-    public bool visited = false;
     float childLength;
     public OctreeNode(Bounds b, float minNodeSize)
     {

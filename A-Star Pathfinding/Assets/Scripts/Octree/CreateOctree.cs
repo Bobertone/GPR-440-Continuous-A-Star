@@ -35,14 +35,22 @@ public class CreateOctree : MonoBehaviour
     {
         otree = new Octree();
         pointMap = new Dictionary<Vector3Int, Point>();
+        StartCoroutine(Main());
+    }
 
+    IEnumerator Main() 
+    {
         otree.CreateOctree(worldObjects, nodeMinSize, worldObjLayer);
+        yield return new WaitForSeconds(.25f);
+
         otree.rootNode.AddCorners(worldObjLayer);
         AddPathEnds();
         FindNeighbors();
         GetGoalDistance(goal.transform.position);
-        //start.GetComponent<MoveAgent>().AStarSearch(startPoint, endPoint);
-        
+        yield return new WaitForSeconds(.25f);
+
+        start.GetComponent<MoveAgent>().AStarSearch(startPoint, endPoint);
+        start.GetComponent<MoveAgent>().FollowPath();
     }
 
     void OnDrawGizmos()
@@ -56,7 +64,7 @@ public class CreateOctree : MonoBehaviour
 
     public void Draw() 
     {
-        Gizmos.color = new Color(0, 0, 1);
+        Gizmos.color = new Color(1, 1, 0);
         foreach (var pos in pointMap.Keys)
         {
             Gizmos.DrawSphere(pos, .05f* nodeMinSize);
@@ -75,8 +83,8 @@ public class CreateOctree : MonoBehaviour
 
     public void AddPathEnds() 
     {
-        Point startPoint = new Point(new Vector3Int((int)start.transform.position.x, (int)start.transform.position.y, (int)start.transform.position.z));
-        Point endPoint = new Point(new Vector3Int((int)goal.transform.position.x, (int)goal.transform.position.y, (int)goal.transform.position.z));
+        startPoint = new Point(new Vector3Int((int)start.transform.position.x, (int)start.transform.position.y, (int)start.transform.position.z));
+        endPoint = new Point(new Vector3Int((int)goal.transform.position.x, (int)goal.transform.position.y, (int)goal.transform.position.z));
         pointMap.Add(startPoint.pos, startPoint);
         pointMap.Add(endPoint.pos, endPoint);
     }
